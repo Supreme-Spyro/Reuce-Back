@@ -1,4 +1,5 @@
 require('dotenv').config();
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const User  = require('../../models/User');
@@ -6,6 +7,22 @@ const User  = require('../../models/User');
 module.exports = {
     getAllUser: (req, res) => {
         User.find()
+            // .populate({
+            //     path:'product_id',
+            //     populate:[{
+            //         path:'category',
+            //         model:'category'
+            //     },{
+            //         path:'platform',
+            //         model:'platform'
+            //     },{
+            //         path:'comment_id',
+            //         model:'comment'
+            //     },{
+            //         path:'review_id',
+            //         model:'review'
+            //     }]
+            // })
             .then((result) => {
                 res.status(200).json({
                     message: 'success get data User',
@@ -19,6 +36,23 @@ module.exports = {
 
     getUserById: async (req, res) => {
         const Users = await User.findById(req.params.id)
+        // .populate({
+        //     path:'product_id',
+        //     populate:[{
+        //         path:'category',
+        //         model:'category'
+        //     },{
+        //         path:'platform',
+        //         model:'platform'
+        //     },{
+        //         path:'comment_id',
+        //         model:'comment'
+        //     },{
+        //         path:'review_id',
+        //         model:'review'
+        //     }]
+        // });
+        
 
         try {
             res.json({
@@ -108,5 +142,40 @@ module.exports = {
         .catch(error =>{
             res.status(404).send(error)
         })
+    },
+
+    loginUser: async (req, res) => {
+        try {
+            const Users = await User.findOne({ email: req.body.email });
+            if (Users) {
+                const pass = bcrypt.compareSync(
+                    req.body.password,
+                    Users.password
+                );
+                if (pass) {
+                    const token = jwt.sign(
+                        Users.toObject(),
+                        process.env.SECRET_KEY
+                    );
+                    res.json({
+                        message: 'login success',
+                        token,
+                    });
+                } else {
+                    res.status(400).json('wrong password');
+                }
+            } else {
+                res.json('user not found');
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    myProfile: (req, res) => {
+        res.json({
+            message: `hello user: ${req.body.username}`,
+            user: req.body,
+            
+        });
     }
 };
