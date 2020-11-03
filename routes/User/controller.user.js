@@ -86,8 +86,8 @@ module.exports = {
               } else {
 
                 // creating new user if not have same email and username with other user
-                const salt = bcrypt.genSaltSync(10);
-                const hash = bcrypt.hashSync(req.body.password, salt);
+                const salt = await bcrypt.genSalt(10);
+                const hash = await bcrypt.hash(req.body.password, salt);
 
                 let Users = {
                   ...req.body,
@@ -120,15 +120,31 @@ module.exports = {
 
         
     },
-    updateUser: (req, res) =>{
-        User.findByIdAndUpdate(req.params.id, req.body)
-        .then(result =>{
-            result.save();
-            res.status(200).send("update User success")
-        })
-        .catch(error =>{
-            res.status(404).send(error)
-        })
+    updateUser: async (req, res) =>{
+        
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(req.body.password, salt);
+
+                let Users = {
+                  ...req.body,
+                  password: hash,
+                };
+
+        Users = await User.findByIdAndUpdate(req.params.id, Users)
+        
+        try {
+            if(Users){
+                res.json({
+                    message:'success update',
+                    Users
+                })
+            }
+        } catch (error) {
+           res.status(404).json({
+               message:'update failed',
+               error
+           }) 
+        }
     },
     deleteUser: (req, res) =>{
         User.findByIdAndDelete(req.params.id)
