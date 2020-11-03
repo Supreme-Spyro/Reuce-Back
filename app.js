@@ -11,6 +11,7 @@ var reviewRouter = require('./routes/Review/index.review');
 var productRouter = require('./routes/Product/index.product');
 var categoryRouter = require('./routes/Category/index.category');
 var gradeRouter = require('./routes/Grade/index.grade');
+var orderItemRouter = require('./routes/OrderItem/index.orderitem');
 
 var app = express();
 
@@ -28,5 +29,6 @@ app.use('/review', reviewRouter);
 app.use('/product', productRouter);
 app.use('/category', categoryRouter);
 app.use('/grade', gradeRouter);
+app.use('/order-item', orderItemRouter);
 
 module.exports = app;
