@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const Product = require("../../models/Product");
 
 module.exports = {
@@ -74,16 +75,28 @@ module.exports = {
   },
 
   postProduct: async (req, res) => {
-    const Products = await Product.create(req.body);
+
+    const product = createProduct(req);
 
     try {
+      product.save();
       res.json({
-        message: "success add data product",
-        Products,
-      });
-    } catch (err) {
-      console.log(err);
-      res.status(500).send(err);
+        message: 'create product success',
+        product:{
+          _id: product.id,
+          name: product.name,
+          price: product.price,
+          description: product.description,
+          category: product.category,
+          grade: product.grade,
+          weight: product.weight,
+          user: product.user,
+          role: product.role,
+          image: product.image
+        }
+      })
+    } catch (error) {
+      res.send(error)
     }
   },
   updateProduct: (req, res) => {
@@ -141,3 +154,18 @@ module.exports = {
     }
   },
 };
+
+const createProduct = (req) => {
+  return new Product({
+      _id: new mongoose.Types.ObjectId(),
+      name: req.body.name,
+      price: req.body.price,
+      description: req.body.description,
+      category: req.body.category,
+      grade: req.body.grade,
+      weight: req.body.weight,
+      user: req.body.user,
+      role: req.body.role,
+      image: req.file.path
+  });
+}
