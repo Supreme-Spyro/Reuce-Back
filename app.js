@@ -12,6 +12,7 @@ var productRouter = require('./routes/Product/index.product');
 var categoryRouter = require('./routes/Category/index.category');
 var gradeRouter = require('./routes/Grade/index.grade');
 var orderItemRouter = require('./routes/OrderItem/index.orderitem');
+var orderRouter = require('./routes/Order/index.order');
 
 var app = express();
 
@@ -30,5 +31,6 @@ app.use('/product', productRouter);
 app.use('/category', categoryRouter);
 app.use('/grade', gradeRouter);
 app.use('/order-item', orderItemRouter);
+app.use('/order', orderRouter);
 
 module.exports = app;
