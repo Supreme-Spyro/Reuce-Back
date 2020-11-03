@@ -9,6 +9,7 @@ var userRouter = require('./routes/User/index.user');
 var artikelRouter = require('./routes/Artikel/index.artikel');
 var reviewRouter = require('./routes/Review/index.review');
 var productRouter = require('./routes/Product/index.product');
+var categoryRouter = require('./routes/Category/index.category');
 
 var app = express();
 
@@ -24,5 +25,6 @@ app.use('/user', userRouter);
 app.use('/artikel', artikelRouter);
 app.use('/review', reviewRouter);
 app.use('/product', productRouter);
+app.use('/category', categoryRouter);
 
 module.exports = app;
