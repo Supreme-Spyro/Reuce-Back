@@ -7,7 +7,8 @@ var cors = require('cors');
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/User/index.user');
 var artikelRouter = require('./routes/Artikel/index.artikel');
-var reviewRouter = require('./routes/Review/index.review')
+var reviewRouter = require('./routes/Review/index.review');
+var productRouter = require('./routes/Product/index.product');
 
 var app = express();
 
@@ -22,6 +23,6 @@ app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/artikel', artikelRouter);
 app.use('/review', reviewRouter);
-
+app.use('/product', productRouter);
 
 module.exports = app;

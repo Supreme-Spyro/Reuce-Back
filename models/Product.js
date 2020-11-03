@@ -30,8 +30,7 @@ const productSchema = mongoose.Schema({
     role:{
         type:String,
         enum:['jual','beli'],
-        default:'jual',
-        required:true
+        default:'jual'
     }
 },{timestamps: true})
 
