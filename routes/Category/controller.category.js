@@ -3,6 +3,10 @@ const Category = require('../../models/Category');
 module.exports = {
   getAllCategory: (req, res) => {
     Category.find()
+    .populate({
+      path:'product',
+      model:'Product'
+    })
     .then(result => {
       res.status(200).json({
         message: "success get data Category",
@@ -15,7 +19,11 @@ module.exports = {
   },
 
   getCategoryById: async (req, res) => {
-    const Categories = await Category.findById(req.params.id);
+    const Categories = await Category.findById(req.params.id)
+    .populate({
+      path:'product',
+      model:'Product'
+    });
   
     try {
       res.json({
