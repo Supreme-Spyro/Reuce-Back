@@ -3,46 +3,17 @@ const Order = require('../../models/Order');
 module.exports = {
   getAllOrder: (req, res) => {
     Order.find()
-    // .populate({
-    //   path:'user_id',
-    //   populate:{
-    //     path:'product_id',
-    //     model:'product',
-    //     populate:[{
-    //       path:'category',
-    //       model:'category'          
-    //     },{
-    //       path:'platform',
-    //       model:'platform'
-    //     },{
-    //       path:'comment_id',
-    //       model:'comment'
-    //     },{
-    //       path:'review_id',
-    //       model:'review'
-    //     }]
-    //   }
-    // })
-    // .populate({
-    //   path:'order_item_id',
-    //   populate:{
-    //     path:'product_id',
-    //     model:'product',
-    //     populate:[{
-    //       path:'category',
-    //       model:'category'          
-    //     },{
-    //       path:'platform',
-    //       model:'platform'
-    //     },{
-    //       path:'comment_id',
-    //       model:'comment'
-    //     },{
-    //       path:'review_id',
-    //       model:'review'
-    //     }]
-    //   }    
-    // })
+    .populate({
+      path:'user',
+      populate:{
+        path:'review',
+        model:'Review'
+      }
+    })
+    .populate({
+      path:'orderItem',
+      model:'OrderItem'
+    })
     .then(result => {
       res.status(200).json({
         message: "success get data Order",
@@ -55,8 +26,18 @@ module.exports = {
   },
 
   getOrderById: async (req, res) => {
-    const Orders = await Order.findById(req.params.id);
-  
+    const Orders = await Order.findById(req.params.id)
+    .populate({
+      path:'user',
+      populate:{
+        path:'review',
+        model:'Review'
+      }
+    })
+    .populate({
+      path:'orderItem',
+      model:'OrderItem'
+    });
     try {
       res.json({
         message: "success get Order with id",

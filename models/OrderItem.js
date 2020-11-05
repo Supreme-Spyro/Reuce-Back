@@ -5,10 +5,10 @@ const orderItemSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref: 'Product'
     },
-    price:{
-        type:Number,
-        required:true
-    },
+    // amount:{
+    //     type:Number,
+    //     default:0
+    // },
     quantity:{
         type:Number,
         required:true,
@@ -19,6 +19,12 @@ const orderItemSchema = new mongoose.Schema({
         ref:'User'
     }
 },{timestamps: true});
+
+orderItemSchema.virtual('amount').get(()=>{
+    let amount = 0;
+    amount += this.product.price * this.quantity;
+    return amount;
+})
 
 const OrderItem = mongoose.model('OrderItem', orderItemSchema);
 

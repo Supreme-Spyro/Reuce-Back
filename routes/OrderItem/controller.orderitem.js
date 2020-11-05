@@ -1,32 +1,18 @@
+const mongoose = require('mongoose')
 const OrderItem = require('../../models/OrderItem');
+const Product = require('../../models/Product')
 
 module.exports = {
   getAllOrderItem: (req, res) => {
     OrderItem.find()
-    // .populate({
-    //   path:'product_id',
-    //   populate:[{
-    //     path:'category',
-    //     model:'category'          
-    //   },{
-    //     path:'platform',
-    //     model:'platform'
-    //   },{
-    //     path:'comment_id',
-    //     model:'comment',
-    //     populate:{
-    //       path:'user_id',
-    //       model:'user'
-    //     }
-    //   },{
-    //     path:'review_id',
-    //     model:'review',
-    //     populate:{
-    //       path:'user_id',
-    //       model:'user'
-    //     }
-    //   }]
-    // })
+    .populate({
+      path:'product',
+      model:'Product'
+    })
+    .populate({
+      path:'user',
+      model:'User'
+    })
     .then(result => {
       res.status(200).json({
         message: "success get data OrderItem",
@@ -39,7 +25,15 @@ module.exports = {
   },
 
   getOrderItemById: async (req, res) => {
-    const OrderItems = await OrderItem.findById(req.params.id);
+    const OrderItems = await OrderItem.findById(req.params.id)
+    .populate({
+      path:'product',
+      model:'Product'
+    })
+    .populate({
+      path:'user',
+      model:'User'
+    });
   
     try {
       res.json({
@@ -53,10 +47,30 @@ module.exports = {
   },
 
   postOrderItem: async (req, res) => {
-    
+
+    // const orderItem = createOrderItem(req);
+
+    // try {
+    //   orderItem.save();
+    //   res.json({
+    //     message: 'create order item success',
+    //     product:{
+    //       _id: product.id,
+    //       product: orderItem.product.populate('product'),
+    //       quantity: orderItem.quantity,
+    //       user: orderItem.user,
+    //       amount: orderItem.amount
+    //     }
+    //   })
+    // } catch (error) {
+    //   res.send(error)
+    // }
+
+
     const OrderItems = await OrderItem.create(req.body);
     
     try {
+      console.log("data amount",OrderItems.amount)
       res.json({
         message: "success add data OrderItem",
         OrderItems
@@ -90,3 +104,13 @@ module.exports = {
     })
   }
 }
+
+// const createOrderItem = (req) => {
+//   return new OrderItem({
+//       _id: new mongoose.Types.ObjectId(),
+//       product: req.body.product,
+//       quantity: req.body.quantity,
+//       user: req.body.user,
+//       amount: req.body.product.price * req.body.quantity ,
+//   });
+// }
