@@ -117,8 +117,8 @@ module.exports = {
         try {
             if(dataUsers){
                 res.json({
-                    message:'success update',
-                    dataUsers
+                    message:'success update data user'
+                    // dataUsers
                 })
             }
         } catch (error) {
