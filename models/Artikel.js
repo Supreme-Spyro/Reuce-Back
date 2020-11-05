@@ -9,6 +9,8 @@ const artikelSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    source:String,
+    image:String,
     admin:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'User'

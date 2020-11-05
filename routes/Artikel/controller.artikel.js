@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Artikel = require('../../models/Artikel');
 
 module.exports = {
@@ -31,12 +32,19 @@ module.exports = {
 
   postArtikel: async (req, res) => {
     
-    const Artikels = await Artikel.create(req.body);
+    const artikel = createArtikel(req);
     
     try {
+      artikel.save();
       res.json({
         message: "success add data Artikel",
-        Artikels
+        artikel:{
+          _id: artikel.id,
+          title: artikel.title,
+          content: artikel.content,
+          admin: artikel.admin,
+          image: artikel.image
+        }
       });
     } catch (err) {
       console.log(err);
@@ -66,4 +74,14 @@ module.exports = {
         res.status(404).send(error)
     })
   }
+};
+
+const createArtikel = (req) => {
+  return new Artikel({
+      _id: new mongoose.Types.ObjectId(),
+      title: req.body.title,
+      content: req.body.content,
+      admin: req.body.admin,
+      image: req.file.path
+  });
 }
