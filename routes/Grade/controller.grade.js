@@ -3,6 +3,13 @@ const Grade = require('../../models/Grade');
 module.exports = {
   getAllGrade: (req, res) => {
     Grade.find()
+    .populate({
+      path:'product',
+      populate:{
+        path:'category',
+        model:'Category'
+      }
+    })
     .then(result => {
       res.status(200).json({
         message: "success get data Grade",
@@ -15,7 +22,14 @@ module.exports = {
   },
 
   getGradeById: async (req, res) => {
-    const Categories = await Grade.findById(req.params.id);
+    const Categories = await Grade.findById(req.params.id)
+    .populate({
+      path:'product',
+      populate:{
+        path:'category',
+        model:'Category'
+      }
+    });
   
     try {
       res.json({
