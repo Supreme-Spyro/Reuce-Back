@@ -16,7 +16,8 @@ module.exports = {
   },
 
   getReviewById: async (req, res) => {
-    const Reviews = await Review.findById(req.params.id).populate('commenter');
+    const Reviews = await Review.findById(req.params.id)
+    .populate('commenter');
   
     try {
       res.json({

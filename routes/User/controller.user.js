@@ -7,22 +7,13 @@ const User  = require('../../models/User');
 module.exports = {
     getAllUser: (req, res) => {
         User.find()
-            // .populate({
-            //     path:'product_id',
-            //     populate:[{
-            //         path:'category',
-            //         model:'category'
-            //     },{
-            //         path:'platform',
-            //         model:'platform'
-            //     },{
-            //         path:'comment_id',
-            //         model:'comment'
-            //     },{
-            //         path:'review_id',
-            //         model:'review'
-            //     }]
-            // })
+            .populate({
+                path:'review',
+                populate:{
+                    path:'commenter',
+                    model:'User'
+                }
+            })
             .then((result) => {
                 res.status(200).json({
                     message: 'success get data User',
@@ -36,22 +27,13 @@ module.exports = {
 
     getUserById: async (req, res) => {
         const Users = await User.findById(req.params.id)
-        // .populate({
-        //     path:'product_id',
-        //     populate:[{
-        //         path:'category',
-        //         model:'category'
-        //     },{
-        //         path:'platform',
-        //         model:'platform'
-        //     },{
-        //         path:'comment_id',
-        //         model:'comment'
-        //     },{
-        //         path:'review_id',
-        //         model:'review'
-        //     }]
-        // });
+        .populate({
+            path:'review',
+            populate:{
+                path:'commenter',
+                model:'User'
+            }
+        })
         
 
         try {
@@ -130,13 +112,13 @@ module.exports = {
                   password: hash,
                 };
 
-        Users = await User.findByIdAndUpdate(req.params.id, Users)
+        const dataUsers = await User.findByIdAndUpdate(req.params.id, Users)
         
         try {
-            if(Users){
+            if(dataUsers){
                 res.json({
                     message:'success update',
-                    Users
+                    dataUsers
                 })
             }
         } catch (error) {

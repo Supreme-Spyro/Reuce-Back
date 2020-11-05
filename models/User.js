@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
     password: String,
     address: String,
     image: String,
+    review:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Review'
+    },
     role:{
         type: String,
         enum:['user', 'recycler', 'admin'],
