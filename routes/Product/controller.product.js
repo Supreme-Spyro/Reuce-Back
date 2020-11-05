@@ -4,22 +4,15 @@ const Product = require("../../models/Product");
 module.exports = {
   getAllProduct: (req, res) => {
     Product.find()
-    //   .populate("category")
-    //   .populate("platform")
-    //   .populate({
-    //     path: "comment_id",
-    //     populate: {
-    //       path: "user_id",
-    //       model: "user",
-    //     },
-    //   })
-    //   .populate({
-    //     path: "review_id",
-    //     populate: {
-    //       path: "user_id",
-    //       model: "user",
-    //     },
-    //   })
+    .populate('category')
+    .populate('grade')
+    .populate({
+      path:'user',
+      populate:{
+        path:'review',
+        model:'Review'
+      }
+    })
       .then((result) => {
         res.status(200).json({
           message: "success get data product",
@@ -33,22 +26,15 @@ module.exports = {
 
   getProductById: async (req, res) => {
     const Products = await Product.findById(req.params.id)
-    //   .populate("category")
-    //   .populate("platform")
-    //   .populate({
-    //     path: "comment_id",
-    //     populate: {
-    //       path: "user_id",
-    //       model: "user",
-    //     },
-    //   })
-    //   .populate({
-    //     path: "review_id",
-    //     populate: {
-    //       path: "user_id",
-    //       model: "user",
-    //     },
-    //   });
+    .populate('category')
+    .populate('grade')
+    .populate({
+      path:'user',
+      populate:{
+        path:'review',
+        model:'Review'
+      }
+    })
 
     try {
       res.json({
@@ -125,22 +111,15 @@ module.exports = {
   getProductByName: async (req, res) => {
     const parameter = req.params.id;
     const Products = await Product.find({ name: parameter })
-    //   .populate("category")
-    //   .populate("platform")
-    //   .populate({
-    //     path: "comment_id",
-    //     populate: {
-    //       path: "user_id",
-    //       model: "user",
-    //     },
-    //   })
-    //   .populate({
-    //     path: "review_id",
-    //     populate: {
-    //       path: "user_id",
-    //       model: "user",
-    //     },
-    //   });
+    .populate('category')
+    .populate('grade')
+    .populate({
+      path:'user',
+      populate:{
+        path:'review',
+        model:'Review'
+      }
+    })
     Products.map((item) => item.name).sort();
 
     try {
