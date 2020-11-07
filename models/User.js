@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
     password: String,
     address: String,
     image: String,
+    product:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Product'
+    }],
     review:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Review'
