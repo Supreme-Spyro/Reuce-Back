@@ -3,7 +3,7 @@ const Artikel = require('../../models/Artikel');
 
 module.exports = {
   getAllArtikel: (req, res) => {
-    Artikel.find()
+    Artikel.find().sort({title:1})
     .populate('admin')
     .then(result => {
       res.status(200).json({
@@ -17,7 +17,7 @@ module.exports = {
   },
 
   getArtikelById: async (req, res) => {
-    const Artikels = await Artikel.findById(req.params.id).populate('admin');
+    const Artikels = await Artikel.findById(req.params.id).sort({title:1}).populate('admin');
   
     try {
       res.json({
