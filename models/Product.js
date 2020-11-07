@@ -13,10 +13,10 @@ const productSchema = mongoose.Schema({
         type:String,
         required: true
     },
-    category:[{
+    category:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Category'
-    }],
+    },
     grade:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Grade'
