@@ -3,7 +3,7 @@ const Product = require("../../models/Product");
 
 module.exports = {
   getAllProduct: (req, res) => {
-    Product.find()
+    Product.find().sort({name:1})
     .populate('category')
     .populate('grade')
     .populate({
@@ -25,7 +25,7 @@ module.exports = {
   },
 
   getProductById: async (req, res) => {
-    const Products = await Product.findById(req.params.id)
+    const Products = await Product.findById(req.params.id).sort({name:1})
     .populate('category')
     .populate('grade')
     .populate({
