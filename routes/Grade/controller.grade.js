@@ -22,7 +22,7 @@ module.exports = {
   },
 
   getGradeById: async (req, res) => {
-    const Categories = await Grade.findById(req.params.id).sort({name:1})
+    const Grades = await Grade.findById(req.params.id).sort({name:1})
     .populate({
       path:'product',
       populate:{
@@ -34,7 +34,7 @@ module.exports = {
     try {
       res.json({
         message: "success get Grade with id",
-        Categories
+        Grades
       });
     } catch (err) {
       console.log(err);
