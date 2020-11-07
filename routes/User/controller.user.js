@@ -6,7 +6,7 @@ const User  = require('../../models/User');
 
 module.exports = {
     getAllUser: (req, res) => {
-        User.find().sort({role:1})
+        User.find().sort({role:1, fullname:1})
             .populate({
                 path:'review',
                 populate:{
