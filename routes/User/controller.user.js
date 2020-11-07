@@ -6,7 +6,7 @@ const User  = require('../../models/User');
 
 module.exports = {
     getAllUser: (req, res) => {
-        User.find()
+        User.find().sort({role:1})
             .populate({
                 path:'review',
                 populate:{
@@ -15,6 +15,8 @@ module.exports = {
                 }
             })
             .then((result) => {
+                // let mySort = {role:1}
+                // let data = result.sort(mySort)
                 res.status(200).json({
                     message: 'success get data User',
                     result,
@@ -26,7 +28,7 @@ module.exports = {
     },
 
     getUserById: async (req, res) => {
-        const Users = await User.findById(req.params.id)
+        const Users = await User.findById(req.params.id).sort({role:1})
         .populate({
             path:'review',
             populate:{
