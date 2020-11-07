@@ -36,6 +36,7 @@ module.exports = {
     });
   
     try {
+      console.log("data amount by id: ",OrderItems.amount)
       res.json({
         message: "success get OrderItem with id",
         OrderItems
