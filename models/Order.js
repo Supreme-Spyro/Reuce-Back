@@ -5,6 +5,7 @@ const orderSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'OrderItem'
     }],
+    // total: Number,
     user:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User'
@@ -13,7 +14,7 @@ const orderSchema = new mongoose.Schema({
 {timestamps:true}
 );
 
-orderSchema.virtual('total').get(()=>{
+orderSchema.virtual('total').get(function(){
     let total = 0;
     for (let i = 0; i < this.orderItem.length; i++)
         total += this.orderItem[i].price;

@@ -5,10 +5,6 @@ const orderItemSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref: 'Product'
     },
-    // amount:{
-    //     type:Number,
-    //     default:0
-    // },
     quantity:{
         type:Number,
         required:true,
@@ -20,10 +16,12 @@ const orderItemSchema = new mongoose.Schema({
     }
 },{timestamps: true});
 
-orderItemSchema.virtual('amount').get(()=>{
-    let amount = 0;
-    amount += this.product.price * this.quantity;
-    return amount;
+orderItemSchema.virtual('amount').get(function(){
+    // let amount = 0;
+    // amount += this.price * this.quantity;
+    // console.log(typeof this.proudct.price)
+    // console.log(typeof this.quantity)
+    return this.product.price * this.quantity;
 })
 
 const OrderItem = mongoose.model('OrderItem', orderItemSchema);
