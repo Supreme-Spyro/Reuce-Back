@@ -2,7 +2,7 @@ const Grade = require('../../models/Grade');
 
 module.exports = {
   getAllGrade: (req, res) => {
-    Grade.find()
+    Grade.find().sort({name:1})
     .populate({
       path:'product',
       populate:{
@@ -22,7 +22,7 @@ module.exports = {
   },
 
   getGradeById: async (req, res) => {
-    const Categories = await Grade.findById(req.params.id)
+    const Categories = await Grade.findById(req.params.id).sort({name:1})
     .populate({
       path:'product',
       populate:{
