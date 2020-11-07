@@ -2,7 +2,7 @@ const Category = require('../../models/Category');
 
 module.exports = {
   getAllCategory: (req, res) => {
-    Category.find()
+    Category.find().sort({name:1})
     .populate({
       path:'product',
       model:'Product'
@@ -19,7 +19,7 @@ module.exports = {
   },
 
   getCategoryById: async (req, res) => {
-    const Categories = await Category.findById(req.params.id)
+    const Categories = await Category.findById(req.params.id).sort({name:1})
     .populate({
       path:'product',
       model:'Product'
