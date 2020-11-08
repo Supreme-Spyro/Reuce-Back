@@ -10,11 +10,13 @@ const {
     deleteOrderItem
 } = require("./controller.orderitem")
 
+const { auth, isAdmin } = require('../../helper/auth');
+
 /* GET users listing. */
-router.get('/', getAllOrderItem);
-router.get('/:id', getOrderItemById);
-router.post('/', postOrderItem);
+router.get('/',auth, getAllOrderItem);
+router.get('/:id',auth, getOrderItemById);
+router.post('/',auth, postOrderItem);
 router.put('/:id', updateOrderItem);
-router.delete('/:id', deleteOrderItem);
+router.delete('/:id',auth, deleteOrderItem);
 
 module.exports = router;

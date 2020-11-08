@@ -26,15 +26,15 @@ const {
     deleteArtikel,
 } = require('./controller.artikel');
 
-const { auth } = require('../../helper/auth');
+const { auth, isAdmin } = require('../../helper/auth');
 
 
 /* GET Artikels listing. */
-router.get('/', getAllArtikel);
+router.get('/',  getAllArtikel);
 router.get('/:id', getArtikelById);
-router.post('/',  upload.single('image'), postArtikel);
+router.post('/', auth, isAdmin, upload.single('image'), postArtikel);
 router.put('/:id', updateArtikel);
-router.delete('/:id', deleteArtikel);
+router.delete('/:id',auth, isAdmin, deleteArtikel);
 
 
 module.exports = router;

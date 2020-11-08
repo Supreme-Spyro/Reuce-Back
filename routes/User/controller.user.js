@@ -105,17 +105,30 @@ module.exports = {
         
     },
     updateUser: async (req, res) =>{
-        
-        const salt = await bcrypt.genSalt(10);
-        const hash = await bcrypt.hash(req.body.password, salt);
+
+        const salt =  await bcrypt.genSalt(10);
+        console.log("data body: ", req.body)
+        const hash =  await bcrypt.hash(req.body.password, salt);
 
                 let Users = {
                   ...req.body,
                   password: hash,
                 };
 
-        const dataUsers = await User.findByIdAndUpdate(req.params.id, Users)
+        const dataUsers =  await User.findByIdAndUpdate(req.params.id, Users)
         
+        // .then((result)=>{
+        //     res.json({
+        //         message:'update success'
+        //     })
+        // })
+        // .catch((error) =>{
+        //     res.json({
+        //         message:'update failed',
+        //         error
+        //     })
+        // })
+
         try {
             if(dataUsers){
                 res.json({
@@ -130,6 +143,9 @@ module.exports = {
            }) 
         }
     },
+    // updateDataUser: (req, ) =>{
+
+    // },
     deleteUser: (req, res) =>{
         User.findByIdAndDelete(req.params.id)
         .then(result =>{

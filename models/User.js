@@ -32,6 +32,11 @@ const userSchema = new mongoose.Schema({
 },{timestamps:true}
 );
 
+// userSchema.methods.isAdmin = function () {
+//     console.log("data role: ",this.role)
+//     return this.role.find(role => role == 'admin');
+// };
+
 const User = mongoose.model('User', userSchema)
 
 module.exports = User;

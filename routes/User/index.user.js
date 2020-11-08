@@ -11,16 +11,16 @@ const {
     myProfile
 } = require('./controller.user');
 
-const { auth } = require('../../helper/auth');
+const { auth, isAdmin, userOwnOrIsAdmin } = require('../../helper/auth');
 
 router.get('/myprofile', auth, myProfile);
 
 /* GET users listing. */
-router.get('/', getAllUser);
-router.get('/:id', getUserById);
+router.get('/', auth, isAdmin, getAllUser);
+router.get('/:id', auth, getUserById);
 router.post('/register', registerUser);
 router.put('/:id', updateUser);
-router.delete('/:id', deleteUser);
+router.delete('/:id', auth, isAdmin, deleteUser);
 router.post('/login', loginUser);
 
 
