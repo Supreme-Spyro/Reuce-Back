@@ -31,7 +31,7 @@ const { auth, isAdmin } = require('../../helper/auth');
 
 /* GET users listing. */
 router.get("/", getAllProduct);
-router.get("/:id", getProductById);
+router.get("/:id",auth, getProductById);
 router.post("/",auth, upload.single('image') ,postProduct);
 router.put("/:id", updateProduct);
 router.delete("/:id",auth, isAdmin,  deleteProduct);
