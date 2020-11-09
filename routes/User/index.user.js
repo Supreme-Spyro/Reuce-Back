@@ -16,8 +16,8 @@ const { auth, isAdmin, userOwnOrIsAdmin } = require('../../helper/auth');
 router.get('/myprofile', auth, myProfile);
 
 /* GET users listing. */
-router.get('/', auth, isAdmin, getAllUser);
-router.get('/:id', auth, getUserById);
+router.get('/', getAllUser);
+router.get('/:id',  getUserById);
 router.post('/register', registerUser);
 router.put('/:id', updateUser);
 router.delete('/:id', auth, isAdmin, deleteUser);
