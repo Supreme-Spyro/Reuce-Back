@@ -17,7 +17,7 @@ const orderSchema = new mongoose.Schema({
 orderSchema.virtual('total').get(function(){
     let total = 0;
     for (let i = 0; i < this.orderItem.length; i++)
-        total += this.orderItem[i].price;
+        total += this.orderItem[i].amount;
     return total;
 });
 
