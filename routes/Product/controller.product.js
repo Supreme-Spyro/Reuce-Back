@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
 const Product = require("../../models/Product");
+const Category = require("../../models/Category");
+const User = require("../../models/User");
+const Grade = require("../../models/Grade");
 
 module.exports = {
   getAllProduct: (req, res) => {
@@ -62,10 +65,22 @@ module.exports = {
 
   postProduct: async (req, res) => {
 
+    
     const product = createProduct(req);
 
+
     try {
-      product.save();
+      await product.save();
+      const category = await Category.findById(req.body.category);
+      category.product.push(product.id);
+      await category.save();
+      const grade = await Grade.findById(req.body.grade);
+      grade.product.push(product.id);
+      await grade.save();
+      const user = await User.findById(req.body.user);
+      user.product.push(product.user);
+      await user.save();
+
       res.json({
         message: 'create product success',
         product:{
