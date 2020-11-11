@@ -13,8 +13,8 @@ const {
 const { auth, isAdmin } = require('../../helper/auth');
 
 /* GET users listing. */
-router.get('/',auth, getAllOrderItem);
-router.get('/:id',auth, getOrderItemById);
+router.get('/', getAllOrderItem);
+router.get('/:id', getOrderItemById);
 router.post('/',auth, postOrderItem);
 router.put('/:id', updateOrderItem);
 router.delete('/:id',auth, deleteOrderItem);

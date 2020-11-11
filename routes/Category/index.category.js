@@ -12,8 +12,8 @@ const {
 const { auth, isAdmin } = require('../../helper/auth');
 
 /* GET users listing. */
-router.get('/', auth, getAllCategory);
-router.get('/:id', auth, getCategoryById);
+router.get('/', getAllCategory);
+router.get('/:id', getCategoryById);
 router.post('/', auth, isAdmin, postCategory);
 router.put('/:id', updateCategory);
 router.delete('/:id', auth, isAdmin, deleteCategory);
