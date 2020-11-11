@@ -30,11 +30,11 @@ const {
 const { auth, isAdmin } = require("../../helper/auth");
 
 /* GET users listing. */
+router.get("/search/:id", getProductByName);
 router.get("/", getAllProduct);
 router.get("/:id", getProductById);
 router.post("/", upload.single("image"), postProduct);
 router.put("/:id", updateProduct);
 router.delete("/:id", auth, isAdmin, deleteProduct);
-router.get("/search/:id", getProductByName);
 
 module.exports = router;

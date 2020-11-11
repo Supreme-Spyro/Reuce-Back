@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 const Product = require("../../models/Product");
 const Category = require("../../models/Category");
 const User = require("../../models/User");
@@ -6,16 +6,17 @@ const Grade = require("../../models/Grade");
 
 module.exports = {
   getAllProduct: (req, res) => {
-    Product.find().sort({name:1})
-    .populate('category')
-    .populate('grade')
-    .populate({
-      path:'user',
-      populate:{
-        path:'review',
-        model:'Review'
-      }
-    })
+    Product.find()
+      .sort({ name: 1 })
+      .populate("category")
+      .populate("grade")
+      .populate({
+        path: "user",
+        populate: {
+          path: "review",
+          model: "Review",
+        },
+      })
       .then((result) => {
         res.status(200).json({
           message: "success get data product",
@@ -28,16 +29,17 @@ module.exports = {
   },
 
   getProductById: async (req, res) => {
-    const Products = await Product.findById(req.params.id).sort({name:1})
-    .populate('category')
-    .populate('grade')
-    .populate({
-      path:'user',
-      populate:{
-        path:'review',
-        model:'Review'
-      }
-    })
+    const Products = await Product.findById(req.params.id)
+      .sort({ name: 1 })
+      .populate("category")
+      .populate("grade")
+      .populate({
+        path: "user",
+        populate: {
+          path: "review",
+          model: "Review",
+        },
+      });
 
     try {
       res.json({
@@ -64,10 +66,7 @@ module.exports = {
   },
 
   postProduct: async (req, res) => {
-
-    
     const product = createProduct(req);
-
 
     try {
       await product.save();
@@ -82,8 +81,8 @@ module.exports = {
       await user.save();
 
       res.json({
-        message: 'create product success',
-        product:{
+        message: "create product success",
+        product: {
           _id: product.id,
           name: product.name,
           price: product.price,
@@ -93,11 +92,11 @@ module.exports = {
           weight: product.weight,
           user: product.user,
           role: product.role,
-          image: product.image
-        }
-      })
+          image: product.image,
+        },
+      });
     } catch (error) {
-      res.send(error)
+      res.send(error);
     }
   },
   updateProduct: (req, res) => {
@@ -125,16 +124,18 @@ module.exports = {
   },
   getProductByName: async (req, res) => {
     const parameter = req.params.id;
-    const Products = await Product.find({ name: parameter })
-    .populate('category')
-    .populate('grade')
-    .populate({
-      path:'user',
-      populate:{
-        path:'review',
-        model:'Review'
-      }
+    const Products = await Product.find({
+      name: { $regex: new RegExp(parameter), $options: "gi" },
     })
+      .populate("category")
+      .populate("grade")
+      .populate({
+        path: "user",
+        populate: {
+          path: "review",
+          model: "Review",
+        },
+      });
     Products.map((item) => item.name).sort();
 
     try {
@@ -151,15 +152,15 @@ module.exports = {
 
 const createProduct = (req) => {
   return new Product({
-      _id: new mongoose.Types.ObjectId(),
-      name: req.body.name,
-      price: req.body.price,
-      description: req.body.description,
-      category: req.body.category,
-      grade: req.body.grade,
-      weight: req.body.weight,
-      user: req.body.user,
-      role: req.body.role,
-      image: req.file.path
+    _id: new mongoose.Types.ObjectId(),
+    name: req.body.name,
+    price: req.body.price,
+    description: req.body.description,
+    category: req.body.category,
+    grade: req.body.grade,
+    weight: req.body.weight,
+    user: req.body.user,
+    role: req.body.role,
+    image: req.file.path,
   });
-}
+};
