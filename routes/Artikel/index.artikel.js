@@ -1,40 +1,39 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var multer = require('multer');
+var multer = require("multer");
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/artikel');
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname);
-    }
-  });
-  
-  const upload = multer({
-    storage: storage,
-    limits: {
-        fileSize: 1024 * 1024 * 5
-    }
-  });
+  destination: function (req, file, cb) {
+    cb(null, "uploads/artikel");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5,
+  },
+});
 
 const {
-    getAllArtikel,
-    getArtikelById,
-    postArtikel,
-    updateArtikel,
-    deleteArtikel,
-} = require('./controller.artikel');
+  getAllArtikel,
+  getArtikelById,
+  postArtikel,
+  updateArtikel,
+  deleteArtikel,
+} = require("./controller.artikel");
 
-const { auth, isAdmin } = require('../../helper/auth');
-
+const { auth, isAdmin } = require("../../helper/auth");
 
 /* GET Artikels listing. */
-router.get('/',  getAllArtikel);
-router.get('/:id', getArtikelById);
-router.post('/', auth, isAdmin, upload.single('image'), postArtikel);
-router.put('/:id', updateArtikel);
-router.delete('/:id',auth, isAdmin, deleteArtikel);
-
+router.get("/", getAllArtikel);
+router.get("/:id", getArtikelById);
+router.post("/", postArtikel);
+// router.post('/', auth, isAdmin, upload.single('image'), postArtikel);
+router.put("/:id", updateArtikel);
+router.delete("/:id", auth, isAdmin, deleteArtikel);
 
 module.exports = router;

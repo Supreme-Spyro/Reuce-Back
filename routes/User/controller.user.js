@@ -165,7 +165,7 @@ module.exports = {
           res.json({
             message: "login success",
             token,
-            role: Users.role
+            role: Users.role,
           });
         } else {
           res.status(400).json("wrong password");
