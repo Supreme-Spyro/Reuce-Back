@@ -14,8 +14,8 @@ const { auth, isAdmin } = require('../../helper/auth');
 /* GET users listing. */
 router.get('/', getAllOrder);
 router.get('/:id', getOrderById);
-router.post('/',auth, postOrder);
+router.post('/', postOrder);
 router.put('/:id', updateOrder);
-router.delete('/:id',auth, deleteOrder);
+router.delete('/:id', deleteOrder);
 
 module.exports = router;

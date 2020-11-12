@@ -28,12 +28,8 @@ const orderItemSchema = new mongoose.Schema({
 // })
 
 orderItemSchema.pre('save', async function(){
-    console.log("data product: ", this.product)
-    console.log("data quantity: ", this.quantity)
 
     let products = await Product.findById(this.product)
-    
-    
     this.amount = products.price * this.quantity
     return this.amount
 })
