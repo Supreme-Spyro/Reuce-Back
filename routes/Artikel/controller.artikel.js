@@ -83,5 +83,6 @@ const createArtikel = (req) => {
       content: req.body.content,
       admin: req.body.admin,
       image: req.file.path
+      // image:req.body.image
   });
 }

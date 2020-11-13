@@ -85,5 +85,26 @@ module.exports = {
     .catch(error =>{
         res.status(404).send(error)
     })
-  }
+  },
+  getOrderByUser: async (req, res) =>{
+    const OrdersUser = await Order.find({user: req.params.id})
+    .sort({name:1})
+    .populate('user')
+    .populate({
+      path:'orderItem',
+      populate:{
+        path:'product',
+        ref:'Product'
+      }
+    })
+
+    try {
+      res.json({
+        message: `success get product with user id ${req.params.id}`,
+        OrdersUser,
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  },
 }

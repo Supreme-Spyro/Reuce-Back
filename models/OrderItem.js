@@ -10,7 +10,6 @@ const orderItemSchema = new mongoose.Schema({
     amount:Number,
     quantity:{
         type:Number,
-        required:true,
         default:1
     },
     user:{
