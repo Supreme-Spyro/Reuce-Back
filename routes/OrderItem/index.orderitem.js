@@ -7,13 +7,15 @@ const {
     getOrderItemById, 
     postOrderItem,
     updateOrderItem,
-    deleteOrderItem
+    deleteOrderItem,
+    getOrderItemByUser
 } = require("./controller.orderitem")
 
 const { auth, isAdmin } = require('../../helper/auth');
 
 /* GET users listing. */
 router.get('/', getAllOrderItem);
+router.get('/user/:id', getOrderItemByUser)
 router.get('/:id', getOrderItemById);
 router.post('/', postOrderItem);
 router.put('/:id', updateOrderItem);
