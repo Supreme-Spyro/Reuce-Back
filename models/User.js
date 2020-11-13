@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'Review'
     },
+    // orderItem:[{
+    //     type:mongoose.Schema.Types.ObjectId,
+    //     ref:"OrderItem"
+    // }],
     role:{
         type: String,
         enum:['user', 'recycler', 'admin'],
