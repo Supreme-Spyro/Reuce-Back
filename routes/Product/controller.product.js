@@ -77,7 +77,7 @@ module.exports = {
       grade.product.push(product.id);
       await grade.save();
       const user = await User.findById(req.body.user);
-      user.product.push(product.user);
+      user.product.push(product.id);
       await user.save();
 
       res.json({
