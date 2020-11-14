@@ -9,6 +9,16 @@ module.exports = {
     User.find()
       .sort({ role: 1, fullname: 1 })
       .populate({
+        path:'product',
+        populate:[{
+          path:'category',
+          ref:'Category'
+        },{
+          path:'grade',
+          ref:'Grade'
+        }]
+      })
+      .populate({
         path: "review",
         populate: {
           path: "commenter",
@@ -31,6 +41,16 @@ module.exports = {
   getUserById: async (req, res) => {
     const Users = await User.findById(req.params.id)
       .sort({ role: 1 })
+      .populate({
+        path:'product',
+        populate:[{
+          path:'category',
+          ref:'Category'
+        },{
+          path:'grade',
+          ref:'Grade'
+        }]
+      })
       .populate({
         path: "review",
         populate: {
