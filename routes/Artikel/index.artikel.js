@@ -37,5 +37,4 @@ router.put("/:id", updateArtikel);
 // router.delete("/:id", auth, isAdmin, deleteArtikel);
 router.delete("/:id", deleteArtikel);
 
-
 module.exports = router;
