@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const Category = require('../../models/Category');
 
 module.exports = {
@@ -38,12 +39,18 @@ module.exports = {
 
   postCategory: async (req, res) => {
     
-    const Categories = await Category.create(req.body);
+    const category = createCategory(req);
     
     try {
+      await category.save()
       res.json({
-        message: "success add data Category",
-        Categories
+        message: "create category success",
+        category: {
+          _id: product.id,
+          name: product.name,
+          product: product.product,
+          image: product.image,
+        },
       });
     } catch (err) {
       console.log(err);
@@ -74,3 +81,12 @@ module.exports = {
     })
   }
 }
+
+const createCategory = (req) => {
+  return new Category({
+    _id: new mongoose.Types.ObjectId(),
+    name: req.body.name,
+    product: req.body.product,
+    image: req.file.path,
+  });
+};
