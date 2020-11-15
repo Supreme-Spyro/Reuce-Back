@@ -66,18 +66,19 @@ module.exports = {
   },
 
   postProduct: async (req, res) => {
-    const product = createProduct(req);
+    
+    const product = await createProduct(req);
 
     try {
       await product.save();
       const category = await Category.findById(req.body.category);
-      category.product.push(product.id);
+      await category.product.push(product.id);
       await category.save();
       const grade = await Grade.findById(req.body.grade);
-      grade.product.push(product.id);
+      await grade.product.push(product.id);
       await grade.save();
       const user = await User.findById(req.body.user);
-      user.product.push(product.id);
+      await user.product.push(product.id);
       await user.save();
 
       res.json({
@@ -150,7 +151,7 @@ module.exports = {
   },
 };
 
-const createProduct = (req) => {
+const createProduct = async (req) => {
   return new Product({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
