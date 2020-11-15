@@ -118,6 +118,20 @@ module.exports = {
     .catch(error =>{
         res.status(404).send(error)
     })
+  },
+  deleteAllOrderItemByUser: (req, res) =>{
+    OrderItem.remove({user: req.params.id})
+    
+    .then(result =>{
+        if(result){
+            res.status(200).send(`OrderItem id: ${req.params.id} has been deleted`)
+        } else{
+            res.send('delete OrderItem failed')
+        }
+    })
+    .catch(error =>{
+        res.status(404).send(error)
+    })
   }
 }
 

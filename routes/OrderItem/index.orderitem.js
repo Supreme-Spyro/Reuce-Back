@@ -8,7 +8,8 @@ const {
     postOrderItem,
     updateOrderItem,
     deleteOrderItem,
-    getOrderItemByUser
+    getOrderItemByUser,
+    deleteAllOrderItemByUser
 } = require("./controller.orderitem")
 
 const { auth, isAdmin } = require('../../helper/auth');
@@ -20,5 +21,6 @@ router.get('/:id', getOrderItemById);
 router.post('/', postOrderItem);
 router.put('/:id', updateOrderItem);
 router.delete('/:id', deleteOrderItem);
+router.delete('/deleteAll/:id', deleteAllOrderItemByUser)
 
 module.exports = router;
