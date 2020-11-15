@@ -46,10 +46,10 @@ module.exports = {
       res.json({
         message: "create category success",
         category: {
-          _id: product.id,
-          name: product.name,
-          product: product.product,
-          image: product.image,
+          _id: category.id,
+          name: category.name,
+          product: category.product,
+          image: category.image,
         },
       });
     } catch (err) {
