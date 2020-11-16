@@ -36,6 +36,6 @@ router.get("/:id", getProductById);
 router.post("/", postProduct);
 // router.post("/", upload.single("image"), postProduct);
 router.put("/:id", updateProduct);
-router.delete("/:id", auth, isAdmin, deleteProduct);
+router.delete("/:id", auth, deleteProduct);
 
 module.exports = router;
