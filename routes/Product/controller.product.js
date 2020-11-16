@@ -162,6 +162,7 @@ const createProduct = async (req) => {
     weight: req.body.weight,
     user: req.body.user,
     role: req.body.role,
-    image: req.file.path,
+    image: req.body.image
+    // image: req.file.path,
   });
 };
