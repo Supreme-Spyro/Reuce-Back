@@ -31,8 +31,8 @@ const { auth, isAdmin } = require("../../helper/auth");
 /* GET Artikels listing. */
 router.get("/", getAllArtikel);
 router.get("/:id", getArtikelById);
-// router.post("/", postArtikel);
-router.post('/', upload.single('image'), postArtikel);
+router.post("/", postArtikel);
+// router.post('/', upload.single('image'), postArtikel);
 router.put("/:id", updateArtikel);
 // router.delete("/:id", auth, isAdmin, deleteArtikel);
 router.delete("/:id", deleteArtikel);
