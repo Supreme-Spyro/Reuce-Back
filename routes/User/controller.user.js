@@ -188,10 +188,10 @@ module.exports = {
             role: Users.role,
           });
         } else {
-          res.status(400).json("wrong password");
+          res.status(404).send("wrong password");
         }
       } else {
-        res.json("user not found");
+        res.status(404).send("user not found");
       }
     } catch (err) {
       console.log(err);
